@@ -352,7 +352,7 @@ const Home = () => {
             </div>
             <div className="md:w-1/3">
               <img 
-                src="/api/placeholder/400/320" 
+                src="https://cdn.vectorstock.com/i/500p/91/26/inventory-management-concept-man-with-clipboard-vector-55299126.jpg" 
                 alt="Inventory Management" 
                 className="rounded-lg shadow-lg"
               />
@@ -529,7 +529,7 @@ const Home = () => {
                       value={currentItem.productLink}
                       onChange={handleInputChange}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="https://cdn.vectorstock.com/i/500p/91/26/inventory-management-concept-man-with-clipboard-vector-55299126.jpg"
+                      placeholder="https://example.com/product"
                       required
                     />
                   </div>
