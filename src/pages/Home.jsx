@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Trash2, Edit, Plus, Search, Package, BarChart3, Settings, LogOut, ChevronDown, User, Menu, X } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
+import { useAuth } from './context/authContext'; 
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [items, setItems] = useState([]);
@@ -16,6 +18,16 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  
+  // Use the auth context
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  // Handle logout
+  const handleLogout = () => {
+    logout();
+    navigate('/auth');
+  };
 
   // Load items from localStorage on component mount
   useEffect(() => {
@@ -159,7 +171,7 @@ const Home = () => {
                     <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
                       <User className="h-5 w-5" />
                     </div>
-                    <span className="ml-2 text-gray-700">Admin</span>
+                    <span className="ml-2 text-gray-700">{user ? user.username : 'User'}</span>
                     <ChevronDown className="ml-1 h-4 w-4 text-gray-500" />
                   </button>
                 </div>
@@ -176,10 +188,13 @@ const Home = () => {
                         <Settings className="mr-2 h-5 w-5" />
                         Settings
                       </a>
-                      <a href="#" className="flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <button 
+                        onClick={handleLogout}
+                        className="flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
                         <LogOut className="mr-2 h-5 w-5" />
                         Sign out
-                      </a>
+                      </button>
                     </div>
                   </div>
                 )}
@@ -203,16 +218,34 @@ const Home = () => {
                 <Settings className="mr-2 h-5 w-5" />
                 Settings
               </a>
-              <a href="#" className="text-gray-600 hover:bg-gray-100 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+              <button 
+                onClick={handleLogout}
+                className="w-full text-left text-gray-600 hover:bg-gray-100 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium flex items-center"
+              >
                 <LogOut className="mr-2 h-5 w-5" />
                 Sign out
-              </a>
+              </button>
             </div>
           </div>
         )}
       </nav>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Welcome message with user data */}
+        <div className="bg-white p-4 rounded-lg shadow mb-8">
+          <div className="flex items-center">
+            <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-4">
+              <User className="h-6 w-6" />
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold">Welcome, {user ? user.username : 'User'}</h2>
+              {user && user.email && (
+                <p className="text-gray-600">{user.email}</p>
+              )}
+            </div>
+          </div>
+        </div>
+        
         {/* Page header */}
         <div className="md:flex md:items-center md:justify-between mb-8">
           <div className="flex-1 min-w-0">
@@ -293,7 +326,7 @@ const Home = () => {
             </div>
             <div className="md:w-1/3">
               <img 
-                src="https://img.freepik.com/free-vector/conveyor-belt-warehouse-concept-illustration_114360-15026.jpg?t=st=1743650766~exp=1743654366~hmac=7616ab87a3b210d14a8688bedc19b18ab11f9152c4d5753aa455d03fd131a6b6&w=740" 
+                src="/api/placeholder/400/320" 
                 alt="Inventory Management" 
                 className="rounded-lg shadow-lg"
               />
