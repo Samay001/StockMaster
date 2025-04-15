@@ -1,5 +1,6 @@
 import express from 'express';
 import { loginController, registerController } from '../controller/authController.js';
+import {updateCartController} from '../controller/updateCartController.js'
 
 const router = express.Router();
 
@@ -30,5 +31,21 @@ router.post("/register", async (req, res) => {
     });
   }
 });
+
+router.put("/update-cart", async (req, res) => {
+  try {
+    const { username, items } = req.body;
+    const result = await updateCartController(username, items);
+
+    return res.status(result.success ? 201 : 400).json(result);
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Server error during cart update',
+      error: error.message
+    });
+  }
+});
+
 
 export default router

@@ -3,6 +3,7 @@ import { Trash2, Edit, Plus, Search, Package, BarChart3, Settings, LogOut, Chevr
 import { QRCodeSVG } from 'qrcode.react';
 import { useAuth } from './context/authContext'; 
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Home = () => {
   const [items, setItems] = useState([]);
@@ -40,6 +41,7 @@ const Home = () => {
   // Save items to localStorage whenever items change
   useEffect(() => {
     localStorage.setItem('inventoryItems', JSON.stringify(items));
+    updateDatabse(user.username,items);
   }, [items]);
 
   const handleInputChange = (e) => {
@@ -90,7 +92,7 @@ const Home = () => {
     }
 
     if (isEditing) {
-      // Update existing item
+
       setItems(
         items.map((item) => 
           item.id === currentItem.id ? currentItem : item
@@ -126,6 +128,30 @@ const Home = () => {
   const totalItems = items.length;
   const totalValue = items.reduce((sum, item) => sum + parseFloat(calculateTotalPrice(item.price, item.quantity)), 0).toFixed(2);
   const lowStock = items.filter(item => parseInt(item.quantity) < 10).length;
+
+  const updateDatabse = async (username,items) => {
+    try{
+      const url = "http://localhost:8080/api/auth/update-cart"; 
+
+      const data = {
+        username,
+        items,
+      };
+
+      console.log("Data to be sent:", data);
+      const res = await axios.put(url, data);
+      console.log("Response from server:", res.data);
+      
+      if(res.status === 200){
+        console.log("Database updated successfully");
+      } else {
+        console.error("Failed to update database");
+      }
+    }
+    catch(error){
+      console.error("Error updating database:", error);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
