@@ -41,7 +41,7 @@ const Home = () => {
   // Save items to localStorage whenever items change
   useEffect(() => {
     localStorage.setItem('inventoryItems', JSON.stringify(items));
-    updateDatabse(user.username,items);
+    updateDatabse(user?.username,items);
   }, [items]);
 
   const handleInputChange = (e) => {
