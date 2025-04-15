@@ -529,7 +529,7 @@ const Home = () => {
                       value={currentItem.productLink}
                       onChange={handleInputChange}
                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="https://example.com/product"
+                      placeholder="https://cdn.vectorstock.com/i/500p/91/26/inventory-management-concept-man-with-clipboard-vector-55299126.jpg"
                       required
                     />
                   </div>
