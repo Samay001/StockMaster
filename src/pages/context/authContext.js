@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     
     try {
-      const res = await fetch('http://localhost:8080/api/auth/register', {
+      const res = await fetch('https://stockmaster-3c97.onrender.com/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData)
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     
     try {
-      const res = await fetch('http://localhost:8080/api/auth/login', {
+      const res = await fetch('https://stockmaster-3c97.onrender.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials)

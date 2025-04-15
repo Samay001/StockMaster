@@ -131,7 +131,7 @@ const Home = () => {
 
   const updateDatabse = async (username,items) => {
     try{
-      const url = "http://localhost:8080/api/auth/update-cart"; 
+      const url = "https://stockmaster-3c97.onrender.com/api/auth/update-cart"; 
 
       const data = {
         username,
